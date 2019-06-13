@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Food
+  - Exit
+  - Enemy
+  - Soda
+  - Undefined
+  - Obstacle
+  - WormSegment
+  - WormTip
+  - WormClick
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - BlockingLayer
+  - WormTipLayer
+  - WallLayer
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3131993583
+    locked: 0
+  - name: BackgroundDecorations
+    uniqueID: 520346343
+    locked: 0
+  - name: Player
+    uniqueID: 2768101475
+    locked: 0
+  - name: BackgroundUI
+    uniqueID: 3069819085
+    locked: 0
