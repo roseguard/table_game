@@ -2131,6 +2131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1222202806}
   - component: {fileID: 1222202805}
+  - component: {fileID: 1222202807}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2203,9 +2204,24 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.75, y: -3.51}
+  m_AnchoredPosition: {x: -5.46, y: -0.65}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1222202807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222202804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7b02a97be4e194a9fc92da73639b9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentPoint: {fileID: 738965456}
+  _TargetID: 6
+  _TargetSteps: 4
 --- !u!1 &1260456995
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,33 +13,6 @@ public class BasePoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(CurrentId == 1)
-        {
-            List<GameObject> list = new List<GameObject>();
-            Debug.Log(FindWay(6, 4, list));
-            foreach(var l in list)
-                Debug.Log(l.name);
-            Debug.Log("===");
-            list.Clear();
-
-            Debug.Log(FindWay(9, 4, list));
-            foreach (var l in list)
-                Debug.Log(l.name);
-            Debug.Log("===");
-            list.Clear();
-
-            Debug.Log(FindWay(5, 4, list));
-            foreach (var l in list)
-                Debug.Log(l.name);
-            Debug.Log("===");
-            list.Clear();
-
-            Debug.Log(FindWay(5, 3, list));
-            foreach (var l in list)
-                Debug.Log(l.name);
-            Debug.Log("===");
-            list.Clear();
-        }
     }
 
     // Update is called once per frame
@@ -48,7 +21,7 @@ public class BasePoint : MonoBehaviour
         
     }
 
-    bool FindWay(int toPointID, int stepsLimitation, List<GameObject> outputWay)
+    public bool FindWay(int toPointID, int stepsLimitation, List<GameObject> outputWay)
     {
         if(stepsLimitation == 0)
         {
