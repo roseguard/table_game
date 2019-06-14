@@ -10,6 +10,8 @@ public class BasePoint : MonoBehaviour
 
     static private int m_lastCellId = 0;
 
+    private List<GameObject> m_holdingPlayers = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,21 +20,21 @@ public class BasePoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public bool FindWay(int toPointID, int stepsLimitation, List<GameObject> outputWay)
     {
-        if(stepsLimitation == 0)
+        if (stepsLimitation == 0)
         {
             return false;
         }
         outputWay.Add(gameObject);
-        if(toPointID == CurrentId)
+        if (toPointID == CurrentId)
         {
             return true;
         }
-        else if(stepsLimitation < 2)
+        else if (stepsLimitation < 2)
         {
             outputWay.Clear();
             return false;
@@ -47,5 +49,20 @@ public class BasePoint : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public virtual void StepOn(GameObject player)
+    {
+
+    }
+
+    public virtual void StayOn(GameObject player)
+    {
+        m_holdingPlayers.Add(player);
+    }
+
+    public virtual void PlayerLeave(GameObject player)
+    {
+        m_holdingPlayers.Remove(player);
     }
 }
