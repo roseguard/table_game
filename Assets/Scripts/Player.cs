@@ -9,29 +9,89 @@ public class Player : MonoBehaviour
     public int _TargetSteps = 0;
 
     private List<GameObject> m_wayPoints = new List<GameObject>();
+    private int m_moveOnSteps = 0;
+    private State m_currentState = State.ChoosingSteps;
+
+    private enum State
+    {
+        Idle,
+        ChoosingCard,
+        ChoosingSteps,
+        ChoosingDirection,
+        Moving,
+        Waiting,
+        Count
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         m_wayPoints.Clear();
-        CurrentPoint.GetComponent<BasePoint>().FindWay(_TargetID, _TargetSteps, m_wayPoints);
-        Debug.Log(m_wayPoints.Count);
+        //CurrentPoint.GetComponent<BasePoint>().FindWay(_TargetID, _TargetSteps, m_wayPoints);
+        //Debug.Log(m_wayPoints.Count);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (m_wayPoints.Count > 0)
+        if (m_currentState == State.ChoosingDirection)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 mousePos2D = mousePos;
+                List<RaycastHit2D> hitted = new List<RaycastHit2D>();
+                Physics2D.Raycast(mousePos2D, Vector2.zero, new ContactFilter2D(), hitted);
+                for (int i = 0; i < hitted.Count; i++)
+                {
+                    if (hitted[i].collider.tag == "Point")
+                    {
+                        GameObject gm = hitted[i].collider.gameObject;
+                        BasePoint targetPoint = gm.GetComponent<BasePoint>();
+                        if (targetPoint.IsAcceptable())
+                        {
+                            int targetID = targetPoint.CurrentId;
+                            BasePoint currentPoint = CurrentPoint.GetComponent<BasePoint>();
+                            m_wayPoints.Clear();
+                            bool valid = currentPoint.FindWay(targetID, m_moveOnSteps+1, m_wayPoints);
+                            if (valid && m_wayPoints.Count > 0)
+                            {
+                                Debug.Log(m_wayPoints.Count);
+                                m_currentState = State.Moving;
+                            }
+                            else
+                            {
+                                m_wayPoints.Clear();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else if (m_currentState == State.Moving)
         {
             Vector2 pos = transform.position;
             Vector2 targetPos = m_wayPoints[0].transform.position;
             pos = pos + (targetPos - pos).normalized * Time.deltaTime;
-            if(Vector2.Distance(pos, targetPos) < 0.1f)
+            if (Vector2.Distance(pos, targetPos) < 0.1f)
             {
                 CurrentPoint = m_wayPoints[0];
                 m_wayPoints.Remove(CurrentPoint);
             }
             transform.position = pos;
+            if(m_wayPoints.Count <= 0)
+            {
+                m_currentState = State.ChoosingSteps;
+            }
+        }
+    }
+
+    public void MoveOnSteps(string steps)
+    {
+        if (m_currentState == State.ChoosingSteps)
+        {
+            m_moveOnSteps = int.Parse(steps);
+            CurrentPoint.GetComponent<BasePoint>().HighlightAceptableForSteps(m_moveOnSteps);
+            m_currentState = State.ChoosingDirection;
         }
     }
 }
