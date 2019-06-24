@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private List<GameObject> m_wayPoints = new List<GameObject>();
     private int m_moveOnSteps = 0;
     private State m_currentState = State.ChoosingSteps;
+    private Vector2 m_clickPos = Vector2.zero;
 
     private enum State
     {
@@ -35,10 +36,14 @@ public class Player : MonoBehaviour
     {
         if (m_currentState == State.ChoosingDirection)
         {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePos2D = mousePos;
             if (Input.GetMouseButtonDown(0))
             {
-                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector2 mousePos2D = mousePos;
+                m_clickPos = Input.mousePosition;
+            }
+            if (Input.GetMouseButtonUp(0) && Vector2.Distance(Input.mousePosition, m_clickPos) < 0.01f)
+            {  
                 List<RaycastHit2D> hitted = new List<RaycastHit2D>();
                 Physics2D.Raycast(mousePos2D, Vector2.zero, new ContactFilter2D(), hitted);
                 for (int i = 0; i < hitted.Count; i++)
