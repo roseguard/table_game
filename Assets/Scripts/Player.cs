@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     private State m_currentState = State.ChoosingSteps;
     private Vector2 m_clickPos = Vector2.zero;
 
-    private enum State
+    public enum State
     {
         Idle,
         ChoosingCard,
@@ -98,5 +98,10 @@ public class Player : MonoBehaviour
             CurrentPoint.GetComponent<BasePoint>().HighlightAceptableForSteps(m_moveOnSteps);
             m_currentState = State.ChoosingDirection;
         }
+    }
+
+    public State GetCurrentState()
+    {
+        return m_currentState;
     }
 }
