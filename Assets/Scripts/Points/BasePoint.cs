@@ -10,17 +10,39 @@ public class BasePoint : MonoBehaviour
 
     static private int m_lastCellId = 0;
 
-    private List<GameObject> m_holdingPlayers = new List<GameObject>();
+    private bool m_acceptable = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        SetAceptable(false);
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public bool IsAcceptable()
+    {
+        return m_acceptable;
+    }
+
+    public void SetAceptable(bool acceplable)
+    {
+        m_acceptable = acceplable;
+        SpriteRenderer spr = GetComponent<SpriteRenderer>();
+        Color color;
+        if (m_acceptable)
+        {
+            color = new Color(0, 255, 0);
+        }
+        else
+        {
+            color = new Color(255, 0, 0);
+        }
+        spr.color = color;
     }
 
     public bool FindWay(int toPointID, int stepsLimitation, List<GameObject> outputWay)
@@ -30,7 +52,7 @@ public class BasePoint : MonoBehaviour
             return false;
         }
         outputWay.Add(gameObject);
-        if (toPointID == CurrentId)
+        if(toPointID == CurrentId && stepsLimitation == 1)
         {
             return true;
         }
@@ -51,18 +73,29 @@ public class BasePoint : MonoBehaviour
         return false;
     }
 
-    public virtual void StepOn(GameObject player)
+    public void HighlightAceptableForSteps(int steps)
     {
-
+        List<GameObject> output = new List<GameObject>();
+        FindPointByDistance(steps, output);
+        foreach(var point in output)
+        {
+            point.GetComponent<BasePoint>().SetAceptable(true);
+        }
     }
 
-    public virtual void StayOn(GameObject player)
+    public void FindPointByDistance(int steps, List<GameObject> output)
     {
-        m_holdingPlayers.Add(player);
-    }
-
-    public virtual void PlayerLeave(GameObject player)
-    {
-        m_holdingPlayers.Remove(player);
+        if(steps == 0)
+        {
+            output.Add(gameObject);
+            return;
+        }
+        else
+        {
+            foreach(var chil in NextPoints)
+            {
+                chil.GetComponent<BasePoint>().FindPointByDistance(steps - 1, output);
+            }
+        }
     }
 }
