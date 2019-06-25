@@ -85,7 +85,8 @@ public class Player : MonoBehaviour
             transform.position = pos;
             if(m_wayPoints.Count <= 0)
             {
-                m_currentState = State.ChoosingSteps;
+                m_currentState = State.ChoosingCard;
+                CurrentPoint.GetComponent<BasePoint>().RemoveHightlightAceptable();
             }
         }
     }
@@ -97,6 +98,15 @@ public class Player : MonoBehaviour
             m_moveOnSteps = int.Parse(steps);
             CurrentPoint.GetComponent<BasePoint>().HighlightAceptableForSteps(m_moveOnSteps);
             m_currentState = State.ChoosingDirection;
+        }
+    }
+
+    public void ChooseCard(GameObject card)
+    {
+        if (m_currentState == State.ChoosingCard)
+        {
+            card.GetComponent<BaseCard>().ExecCard(gameObject);
+            m_currentState = State.ChoosingSteps;
         }
     }
 

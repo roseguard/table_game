@@ -73,14 +73,24 @@ public class BasePoint : MonoBehaviour
         return false;
     }
 
+    static List<GameObject> m_highlightedPoints = new List<GameObject>();
     public void HighlightAceptableForSteps(int steps)
     {
-        List<GameObject> output = new List<GameObject>();
-        FindPointByDistance(steps, output);
-        foreach(var point in output)
+        RemoveHightlightAceptable();
+        FindPointByDistance(steps, m_highlightedPoints);
+        foreach(var point in m_highlightedPoints)
         {
             point.GetComponent<BasePoint>().SetAceptable(true);
         }
+    }
+
+    public void RemoveHightlightAceptable()
+    {
+        foreach (var point in m_highlightedPoints)
+        {
+            point.GetComponent<BasePoint>().SetAceptable(false);
+        }
+        m_highlightedPoints.Clear();
     }
 
     public void FindPointByDistance(int steps, List<GameObject> output)
