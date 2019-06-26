@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     private int m_moveOnSteps = 0;
     private State m_currentState = State.ChoosingSteps;
     private Vector2 m_clickPos = Vector2.zero;
+    public float PlayerSpeed = 1f;
 
     public enum State
     {
@@ -76,7 +77,7 @@ public class Player : MonoBehaviour
         {
             Vector2 pos = transform.position;
             Vector2 targetPos = m_wayPoints[0].transform.position;
-            pos = pos + (targetPos - pos).normalized * Time.deltaTime;
+            pos = pos + (targetPos - pos).normalized * Time.deltaTime*PlayerSpeed;
             if (Vector2.Distance(pos, targetPos) < 0.1f)
             {
                 CurrentPoint = m_wayPoints[0];
