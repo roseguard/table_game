@@ -387,6 +387,18 @@ MonoBehaviour:
   - {fileID: 1290366442}
   PrevPoints: []
   CurrentId: 9
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!1 &36016199
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,6 +735,18 @@ MonoBehaviour:
   - {fileID: 479147706}
   PrevPoints: []
   CurrentId: 5
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &170132769
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -981,6 +1005,18 @@ MonoBehaviour:
   - {fileID: 371683673}
   PrevPoints: []
   CurrentId: 11
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!1 &371683673
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,6 +1052,18 @@ MonoBehaviour:
   - {fileID: 1902036119}
   PrevPoints: []
   CurrentId: 12
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &371683675
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1335,6 +1383,18 @@ MonoBehaviour:
   - {fileID: 1312470446}
   PrevPoints: []
   CurrentId: 14
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &479147708
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1920,6 +1980,40 @@ MonoBehaviour:
   - {fileID: 1770370961}
   PrevPoints: []
   CurrentId: 3
+  OnStep:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1222202804}
+        m_MethodName: set_name
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: asd
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1222202804}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &649937829
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2118,6 +2212,40 @@ MonoBehaviour:
   - {fileID: 1405250066}
   PrevPoints: []
   CurrentId: 1
+  OnStep:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1222202804}
+        m_MethodName: set_name
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: fff
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1222202804}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &738965460
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2322,6 +2450,18 @@ MonoBehaviour:
   - {fileID: 1093198452}
   PrevPoints: []
   CurrentId: 16
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &879609352
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2441,6 +2581,18 @@ MonoBehaviour:
   - {fileID: 1662110670}
   PrevPoints: []
   CurrentId: 18
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &940904892
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2871,6 +3023,18 @@ MonoBehaviour:
   - {fileID: 940904890}
   PrevPoints: []
   CurrentId: 17
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &1093198454
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3074,6 +3238,18 @@ MonoBehaviour:
   - {fileID: 31425794}
   PrevPoints: []
   CurrentId: 8
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!1 &1222202804
 GameObject:
   m_ObjectHideFlags: 0
@@ -3446,6 +3622,18 @@ MonoBehaviour:
   - {fileID: 316571715}
   PrevPoints: []
   CurrentId: 10
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!1 &1312470446
 GameObject:
   m_ObjectHideFlags: 0
@@ -3481,6 +3669,18 @@ MonoBehaviour:
   - {fileID: 879609350}
   PrevPoints: []
   CurrentId: 15
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &1312470448
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3747,6 +3947,29 @@ MonoBehaviour:
   - {fileID: 649937825}
   PrevPoints: []
   CurrentId: 2
+  OnStep:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1222202804}
+        m_MethodName: set_name
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: dsa
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &1405250070
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4047,6 +4270,18 @@ MonoBehaviour:
   - {fileID: 1202450386}
   PrevPoints: []
   CurrentId: 7
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!1 &1471069427
 GameObject:
   m_ObjectHideFlags: 0
@@ -4082,6 +4317,18 @@ MonoBehaviour:
   - {fileID: 0}
   PrevPoints: []
   CurrentId: 21
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &1471069429
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4458,6 +4705,18 @@ MonoBehaviour:
   - {fileID: 1464860594}
   PrevPoints: []
   CurrentId: 6
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &1661009377
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4509,6 +4768,18 @@ MonoBehaviour:
   - {fileID: 2037841951}
   PrevPoints: []
   CurrentId: 19
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &1662110672
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5493,6 +5764,18 @@ MonoBehaviour:
   - {fileID: 170132765}
   PrevPoints: []
   CurrentId: 4
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &1770370965
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5703,6 +5986,18 @@ MonoBehaviour:
   - {fileID: 2037841951}
   PrevPoints: []
   CurrentId: 13
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &1902036121
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6308,6 +6603,18 @@ MonoBehaviour:
   - {fileID: 1471069427}
   PrevPoints: []
   CurrentId: 20
+  OnStep:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStay:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  StepedPlayer: {fileID: 0}
+  StayedPlayers: []
 --- !u!58 &2037841953
 CircleCollider2D:
   m_ObjectHideFlags: 0
