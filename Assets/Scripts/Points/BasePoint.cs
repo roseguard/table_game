@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BasePoint : MonoBehaviour
 {
     public List<GameObject> NextPoints = new List<GameObject>();
     public List<GameObject> PrevPoints = new List<GameObject>();
     public int CurrentId = ++m_lastCellId;
+    public UnityEvent OnStep = null;
+    public UnityEvent OnStay = null;
+    public UnityEvent OnLeave = null;
+    public GameObject StepedPlayer = null;
+    public List<GameObject> StayedPlayers = new List<GameObject>();
 
     static private int m_lastCellId = 0;
 
@@ -107,5 +113,22 @@ public class BasePoint : MonoBehaviour
                 chil.GetComponent<BasePoint>().FindPointByDistance(steps - 1, output);
             }
         }
+    }
+
+    public void SetSteped(GameObject player)
+    {
+        OnStep.Invoke();
+        StepedPlayer = player;
+    }
+
+    public void SetStayed(GameObject player)
+    {
+        OnStay.Invoke();
+        StayedPlayers.Add(player);
+    }
+
+    public void SetLeaved(GameObject player)
+    {
+        StayedPlayers.Remove(player);
     }
 }

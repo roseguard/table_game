@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
                             if (valid && m_wayPoints.Count > 0)
                             {
                                 Debug.Log(m_wayPoints.Count);
+                                CurrentPoint.GetComponent<BasePoint>().SetLeaved(gameObject);
                                 m_currentState = State.Moving;
                             }
                             else
@@ -82,6 +83,14 @@ public class Player : MonoBehaviour
             {
                 CurrentPoint = m_wayPoints[0];
                 m_wayPoints.Remove(CurrentPoint);
+                if(m_wayPoints.Count > 0)
+                {
+                    CurrentPoint.GetComponent<BasePoint>().SetSteped(gameObject);
+                }
+                else
+                {
+                    CurrentPoint.GetComponent<BasePoint>().SetStayed(gameObject);
+                }
             }
             transform.position = pos;
             if(m_wayPoints.Count <= 0)
