@@ -12,12 +12,20 @@ public class CardOnEachPointEffect : BaseEffect
         if (Active)
         {
             Player player = Target.GetComponent<Player>();
-            player.CardsHolder.GetComponent<CardsManager>().GenerateOneMoreCard();
+            player.GetCardHolder.SetActive(false);
+            player.GetCardHolder.SetActive(true);
+            player.LockPlayer(true);
         }
     }
 
     public override void OnPointStayed()
     {
+        if (Active)
+        {
+            Player player = Target.GetComponent<Player>();
+            player.GetCardHolder.SetActive(true);
+            player.LockPlayer(true);
+        }
         Active = false;
     }
 }

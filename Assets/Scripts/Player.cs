@@ -8,12 +8,15 @@ public class Player : MonoBehaviour
     public float PlayerSpeed = 1f;
     public GameObject CardsHolder = null;
     public GameObject DiceHolder = null;
+    public GameObject GetCardHolder = null;
 
     private List<GameObject> m_wayPoints = new List<GameObject>();
     private int m_moveOnSteps = 0;
     private State m_currentState = State.ChoosingSteps;
     private Vector2 m_clickPos = Vector2.zero;
     private List<BaseEffect> m_effects = new List<BaseEffect>();
+    private bool m_locked = false;
+    private GameObject m_objectUnlocker = null;
 
     public enum State
     {
@@ -37,6 +40,16 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if(m_objectUnlocker != null && !m_objectUnlocker.activeSelf)
+        {
+            m_objectUnlocker = null;
+            m_locked = false;
+        }
+
+        if(m_locked)
+        {
+            return;
+        }
         CheckActiveEffects();
         foreach (var effect in m_effects)
         {
@@ -142,6 +155,16 @@ public class Player : MonoBehaviour
         {
             m_effects.Remove(effect);
         }
+    }
+
+    public void LockPlayer(bool toLock)
+    {
+        m_locked = toLock;
+    }
+
+    public void UnlockOnObjectInactive(GameObject unlocker)
+    {
+        m_objectUnlocker = unlocker;
     }
 
     public void MoveOnSteps(string steps)
