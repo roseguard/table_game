@@ -5,14 +5,15 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public GameObject CurrentPoint = null;
-    public int _TargetID = 0;
-    public int _TargetSteps = 0;
+    public float PlayerSpeed = 1f;
+    public GameObject CardsHolder = null;
+    public GameObject DiceHolder = null;
 
     private List<GameObject> m_wayPoints = new List<GameObject>();
     private int m_moveOnSteps = 0;
     private State m_currentState = State.ChoosingSteps;
     private Vector2 m_clickPos = Vector2.zero;
-    public float PlayerSpeed = 1f;
+    private List<BaseEffect> m_effects = new List<BaseEffect>();
 
     public enum State
     {
@@ -25,16 +26,23 @@ public class Player : MonoBehaviour
         Count
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         m_wayPoints.Clear();
-        //CurrentPoint.GetComponent<BasePoint>().FindWay(_TargetID, _TargetSteps, m_wayPoints);
-        //Debug.Log(m_wayPoints.Count);
+        foreach (var effect in m_effects)
+        {
+            effect.OnNewStep();
+        }
     }
 
     void Update()
     {
+        CheckActiveEffects();
+        foreach (var effect in m_effects)
+        {
+            effect.OnUpdate();
+        }
+
         if (m_currentState == State.ChoosingDirection)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -64,6 +72,11 @@ public class Player : MonoBehaviour
                                 Debug.Log(m_wayPoints.Count);
                                 CurrentPoint.GetComponent<BasePoint>().SetLeaved(gameObject);
                                 m_currentState = State.Moving;
+
+                                foreach (var effect in m_effects)
+                                {
+                                    effect.OnPointLeaved();
+                                }
                             }
                             else
                             {
@@ -86,10 +99,20 @@ public class Player : MonoBehaviour
                 if(m_wayPoints.Count > 0)
                 {
                     CurrentPoint.GetComponent<BasePoint>().SetSteped(gameObject);
+
+                    foreach (var effect in m_effects)
+                    {
+                        effect.OnPointSteped();
+                    }
                 }
                 else
                 {
                     CurrentPoint.GetComponent<BasePoint>().SetStayed(gameObject);
+
+                    foreach (var effect in m_effects)
+                    {
+                        effect.OnPointStayed();
+                    }
                 }
             }
             transform.position = pos;
@@ -101,6 +124,26 @@ public class Player : MonoBehaviour
         }
     }
 
+    void CheckActiveEffects()
+    {
+        if(m_effects.Count <= 0)
+        {
+            return;
+        }
+        List<BaseEffect> notActiveEffects = new List<BaseEffect>();
+        foreach(var effect in m_effects)
+        {
+            if(!effect.Active)
+            {
+                notActiveEffects.Add(effect);
+            }
+        }
+        foreach(var effect in notActiveEffects)
+        {
+            m_effects.Remove(effect);
+        }
+    }
+
     public void MoveOnSteps(string steps)
     {
         if (m_currentState == State.ChoosingSteps)
@@ -108,6 +151,11 @@ public class Player : MonoBehaviour
             m_moveOnSteps = int.Parse(steps);
             CurrentPoint.GetComponent<BasePoint>().HighlightAceptableForSteps(m_moveOnSteps);
             m_currentState = State.ChoosingDirection;
+
+            foreach (var effect in m_effects)
+            {
+                effect.OnDiceSelected();
+            }
         }
     }
 
@@ -117,11 +165,22 @@ public class Player : MonoBehaviour
         {
             card.GetComponent<BaseCard>().ExecCard(gameObject);
             m_currentState = State.ChoosingSteps;
+
+            foreach (var effect in m_effects)
+            {
+                effect.OnCardSelected();
+            }
         }
     }
 
     public State GetCurrentState()
     {
         return m_currentState;
+    }
+
+    public void AddEffect(BaseEffect effect)
+    {
+        m_effects.Add(effect);
+        effect.OnStart();
     }
 }

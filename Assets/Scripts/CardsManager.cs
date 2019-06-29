@@ -34,9 +34,19 @@ public class CardsManager : MonoBehaviour
             GameObject newCard = Instantiate(m_templateCard, transform);
             newCard.name = cardID.ToString();
             newCard.GetComponent<Button>().onClick.AddListener(() => CardSelected(newCard.name));
-            newCard.AddComponent<BaseCard>();
+            newCard.AddComponent<ChangeDiceOnEachPoint>();
             newCard.SetActive(true);
         }
+    }
+
+    public void GenerateOneMoreCard()
+    {
+        int cardID = Random.Range(1, 6);
+        GameObject newCard = Instantiate(m_templateCard, transform);
+        newCard.name = cardID.ToString();
+        newCard.GetComponent<Button>().onClick.AddListener(() => CardSelected(newCard.name));
+        newCard.AddComponent<ChangeDiceOnEachPoint>();
+        newCard.SetActive(true);
     }
 
     // Update is called once per frame
