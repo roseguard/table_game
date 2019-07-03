@@ -58,82 +58,96 @@ public class Player : MonoBehaviour
 
         if (m_currentState == State.ChoosingDirection)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mousePos2D = mousePos;
-            if (Input.GetMouseButtonDown(0))
-            {
-                m_clickPos = Input.mousePosition;
-            }
-            if (Input.GetMouseButtonUp(0) && Vector2.Distance(Input.mousePosition, m_clickPos) < 0.01f)
-            {  
-                List<RaycastHit2D> hitted = new List<RaycastHit2D>();
-                Physics2D.Raycast(mousePos2D, Vector2.zero, new ContactFilter2D(), hitted);
-                for (int i = 0; i < hitted.Count; i++)
-                {
-                    if (hitted[i].collider.tag == "Point")
-                    {
-                        GameObject gm = hitted[i].collider.gameObject;
-                        BasePoint targetPoint = gm.GetComponent<BasePoint>();
-                        if (targetPoint.IsAcceptable())
-                        {
-                            int targetID = targetPoint.CurrentId;
-                            BasePoint currentPoint = CurrentPoint.GetComponent<BasePoint>();
-                            m_wayPoints.Clear();
-                            bool valid = currentPoint.FindWay(targetID, m_moveOnSteps+1, m_wayPoints);
-                            if (valid && m_wayPoints.Count > 0)
-                            {
-                                Debug.Log(m_wayPoints.Count);
-                                CurrentPoint.GetComponent<BasePoint>().SetLeaved(gameObject);
-                                m_currentState = State.Moving;
+            OnChoosingDirectionUpdate();
+        }
+        else if (m_currentState == State.Moving)
+        {
+            OnMovingUpdate();
+        }
+    }
 
-                                foreach (var effect in m_effects)
-                                {
-                                    effect.OnPointLeaved();
-                                }
-                            }
-                            else
+    void OnChoosingDirectionUpdate()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePos2D = mousePos;
+        if (Input.GetMouseButtonDown(0))
+        {
+            m_clickPos = Input.mousePosition;
+        }
+        if (Input.GetMouseButtonUp(0) && Vector2.Distance(Input.mousePosition, m_clickPos) < 0.01f)
+        {
+            List<RaycastHit2D> hitted = new List<RaycastHit2D>();
+            Physics2D.Raycast(mousePos2D, Vector2.zero, new ContactFilter2D(), hitted);
+            for (int i = 0; i < hitted.Count; i++)
+            {
+                if (hitted[i].collider.tag == "Point")
+                {
+                    GameObject gm = hitted[i].collider.gameObject;
+                    BasePoint targetPoint = gm.GetComponent<BasePoint>();
+                    if (targetPoint.IsAcceptable())
+                    {
+                        int targetID = targetPoint.CurrentId;
+                        BasePoint currentPoint = CurrentPoint.GetComponent<BasePoint>();
+                        m_wayPoints.Clear();
+                        bool valid = currentPoint.FindWay(targetID, m_moveOnSteps + 1, m_wayPoints);
+                        if (valid && m_wayPoints.Count > 0)
+                        {
+                            Debug.Log(m_wayPoints.Count);
+                            CurrentPoint.GetComponent<BasePoint>().SetLeaved(gameObject);
+                            m_currentState = State.Moving;
+
+                            foreach (var effect in m_effects)
                             {
-                                m_wayPoints.Clear();
+                                effect.OnPointLeaved();
                             }
+                        }
+                        else
+                        {
+                            m_wayPoints.Clear();
                         }
                     }
                 }
             }
         }
-        else if (m_currentState == State.Moving)
+    }
+
+    void OnMovingUpdate()
+    {
+        Vector2 pos = transform.position;
+        Vector2 targetPos = m_wayPoints[0].transform.position;
+        pos = pos + (targetPos - pos).normalized * Time.deltaTime * PlayerSpeed;
+        if (Vector2.Distance(pos, targetPos) < 0.1f)
         {
-            Vector2 pos = transform.position;
-            Vector2 targetPos = m_wayPoints[0].transform.position;
-            pos = pos + (targetPos - pos).normalized * Time.deltaTime*PlayerSpeed;
-            if (Vector2.Distance(pos, targetPos) < 0.1f)
+            CurrentPoint = m_wayPoints[0];
+            m_wayPoints.Remove(CurrentPoint);
+            if (m_wayPoints.Count > 0)
             {
-                CurrentPoint = m_wayPoints[0];
-                m_wayPoints.Remove(CurrentPoint);
-                if(m_wayPoints.Count > 0)
-                {
-                    CurrentPoint.GetComponent<BasePoint>().SetSteped(gameObject);
-
-                    foreach (var effect in m_effects)
-                    {
-                        effect.OnPointSteped();
-                    }
+                BasePoint point = CurrentPoint.GetComponent<BasePoint>();
+                if (point != null)
+                { 
+                    point.SetSteped(gameObject);
                 }
-                else
-                {
-                    CurrentPoint.GetComponent<BasePoint>().SetStayed(gameObject);
 
-                    foreach (var effect in m_effects)
-                    {
-                        effect.OnPointStayed();
-                    }
+                foreach (var effect in m_effects)
+                {
+                    effect.OnPointSteped();
                 }
             }
-            transform.position = pos;
-            if(m_wayPoints.Count <= 0)
+            else
             {
-                m_currentState = State.ChoosingCard;
-                CurrentPoint.GetComponent<BasePoint>().RemoveHightlightAceptable();
+                CurrentPoint.GetComponent<BasePoint>().SetStayed(gameObject);
+
+                foreach (var effect in m_effects)
+                {
+                    effect.OnPointStayed();
+                }
             }
+        }
+        transform.position = pos;
+        if (m_wayPoints.Count <= 0)
+        {
+            m_currentState = State.ChoosingCard;
+            CurrentPoint.GetComponent<BasePoint>().RemoveHightlightAceptable();
         }
     }
 

@@ -70,7 +70,21 @@ public class BasePoint : MonoBehaviour
         for (int i = 0; i < NextPoints.Count; i++)
         {
             List<GameObject> tempPointList = new List<GameObject>();
-            if (NextPoints[i].GetComponent<BasePoint>().FindWay(toPointID, stepsLimitation - 1, tempPointList))
+            BasePoint basePoint = NextPoints[i].GetComponent<BasePoint>();
+            if(basePoint == null)
+            {
+                Subpoint sub = NextPoints[i].GetComponent<Subpoint>();
+                GameObject potentialEnd = sub.gameObject;
+                while (sub != null)
+                {
+                    tempPointList.Add(sub.gameObject);
+                    potentialEnd = sub.NextPoint;
+                    sub = sub.NextPoint.GetComponent<Subpoint>();
+                }
+                tempPointList.Add(potentialEnd);
+                basePoint = potentialEnd.GetComponent<BasePoint>();
+            }
+            if (basePoint.FindWay(toPointID, stepsLimitation - 1, tempPointList))
             {
                 outputWay.AddRange(tempPointList);
                 return true;
@@ -110,7 +124,12 @@ public class BasePoint : MonoBehaviour
         {
             foreach(var chil in NextPoints)
             {
-                chil.GetComponent<BasePoint>().FindPointByDistance(steps - 1, output);
+                BasePoint point = chil.GetComponent<BasePoint>();
+                if(point == null)
+                {
+                    point = chil.GetComponent<Subpoint>().GetFinalBasePoint().GetComponent<BasePoint>();
+                }
+                point.FindPointByDistance(steps - 1, output);
             }
         }
     }
