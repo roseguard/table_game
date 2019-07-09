@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ChangeDiceOnEachPoint : BaseCard
 {
-    // Start is called before the first frame update
+    public GameObject AnimationObject = null;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -18,7 +18,7 @@ public class ChangeDiceOnEachPoint : BaseCard
 
     public override void ExecCard(GameObject playerCaller)
     {
-        CardOnEachPointEffect effect = new CardOnEachPointEffect(playerCaller);
+        CardOnEachPointEffect effect = new CardOnEachPointEffect(playerCaller, AnimationObject);
         playerCaller.GetComponent<Player>().AddEffect(effect);
     }
 }

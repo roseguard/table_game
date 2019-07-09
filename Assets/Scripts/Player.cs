@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
     public float PlayerSpeed = 1f;
     public GameObject CardsHolder = null;
     public GameObject DiceHolder = null;
-    public GameObject GetCardHolder = null;
 
     private List<GameObject> m_wayPoints = new List<GameObject>();
     private int m_moveOnSteps = 0;

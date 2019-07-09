@@ -5,16 +5,12 @@ using UnityEngine.UI;
 
 public class CardsManager : MonoBehaviour
 {
-    GameObject m_templateCard = null;
-
     public int CardCount = 6;
     public GameObject Player = null;
+    public List<GameObject> Prefabs = new List<GameObject>();
 
     void Start()
     {
-        m_templateCard = transform.Find("TemplateCard").gameObject;
-        m_templateCard.SetActive(false);
-
         GenerateCards(CardCount);
     }
 
@@ -28,24 +24,22 @@ public class CardsManager : MonoBehaviour
 
     void GenerateCards(int count)
     {
-        while (transform.childCount - 1 < count)
+        if(Prefabs.Count <= 0)
         {
-            int cardID = Random.Range(1, 6);
-            GameObject newCard = Instantiate(m_templateCard, transform);
-            newCard.name = cardID.ToString();
-            newCard.GetComponent<Button>().onClick.AddListener(() => CardSelected(newCard.name));
-            newCard.AddComponent<ChangeDiceOnEachPoint>();
-            newCard.SetActive(true);
+            return;
+        }
+        while (transform.childCount < count)
+        {
+            GenerateOneMoreCard();
         }
     }
 
     public void GenerateOneMoreCard()
     {
-        int cardID = Random.Range(1, 6);
-        GameObject newCard = Instantiate(m_templateCard, transform);
+        int cardID = Random.Range(0, Prefabs.Count);
+        GameObject newCard = Instantiate(Prefabs[cardID], transform);
         newCard.name = cardID.ToString();
         newCard.GetComponent<Button>().onClick.AddListener(() => CardSelected(newCard.name));
-        newCard.AddComponent<ChangeDiceOnEachPoint>();
         newCard.SetActive(true);
     }
 
