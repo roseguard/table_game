@@ -93,6 +93,7 @@ public class Player : MonoBehaviour
                         {
                             Debug.Log(m_wayPoints.Count);
                             CurrentPoint.GetComponent<BasePoint>().SetLeaved(gameObject);
+                            m_wayPoints.Remove(CurrentPoint);
                             m_currentState = State.Moving;
 
                             foreach (var effect in m_effects)
@@ -125,11 +126,11 @@ public class Player : MonoBehaviour
                 if (point != null)
                 { 
                     point.SetSteped(gameObject);
-                }
 
-                foreach (var effect in m_effects)
-                {
-                    effect.OnPointSteped();
+                    foreach (var effect in m_effects)
+                    {
+                        effect.OnPointSteped();
+                    }
                 }
             }
             else
