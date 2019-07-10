@@ -14,7 +14,6 @@ public class CardOnEachPointEffect : BaseEffect
     public override void OnUpdate()
     {
         base.OnUpdate();
-        Debug.Log(m_animationObj.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime);
     }
 
     public override void OnPointSteped()

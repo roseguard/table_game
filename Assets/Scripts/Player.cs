@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Managers;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,8 +34,10 @@ public class Player : MonoBehaviour
         m_wayPoints.Clear();
         foreach (var effect in m_effects)
         {
-            effect.OnNewStep();
+            effect.OnStart();
         }
+
+        PlayersManager.Instance.AddPlayer(this);
     }
 
     void Update()
