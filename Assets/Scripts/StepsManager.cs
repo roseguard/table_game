@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,8 +33,8 @@ public class StepsManager : MonoBehaviour
         {
             int diceValue = Random.Range(1, 6);
             GameObject newDice = Instantiate(m_templateDice, transform);
-            GameObject textObj = newDice.transform.Find("Text").gameObject;
-            textObj.GetComponent<Text>().text = diceValue.ToString();
+            GameObject textObj = newDice.transform.Find("Text (TMP)").gameObject;
+            textObj.GetComponent<TextMeshProUGUI>().text = diceValue.ToString();
             newDice.name = diceValue.ToString();
             newDice.GetComponent<Button>().onClick.AddListener(() => DiceSelected(newDice.name));
             newDice.SetActive(true);
