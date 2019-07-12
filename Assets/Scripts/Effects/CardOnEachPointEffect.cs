@@ -4,6 +4,7 @@ using UnityEditor;
 public class CardOnEachPointEffect : BaseEffect
 {
     private GameObject m_animationObj = null;
+    private GameObject m_clonedAnimationObj = null;
     private bool KillAfterAnim = false;
 
     public CardOnEachPointEffect(GameObject target, GameObject animationObj) : base(target)
@@ -21,8 +22,7 @@ public class CardOnEachPointEffect : BaseEffect
         if (Active && !KillAfterAnim)
         {
             Player player = Target.GetComponent<Player>();
-            m_animationObj.SetActive(false);
-            m_animationObj.SetActive(true);
+            ShowGetCardPopup();
             player.LockPlayer(true);
         }
     }
@@ -32,9 +32,20 @@ public class CardOnEachPointEffect : BaseEffect
         if (Active && !KillAfterAnim)
         {
             Player player = Target.GetComponent<Player>();
-            m_animationObj.SetActive(true);
+            ShowGetCardPopup();
             player.LockPlayer(true);
         }
         KillAfterAnim = true;
+    }
+
+    private void ShowGetCardPopup()
+    {
+        if (m_clonedAnimationObj != null)
+        {
+            Object.Destroy(m_clonedAnimationObj);
+            m_clonedAnimationObj = null;
+        }
+        m_clonedAnimationObj = Object.Instantiate(m_animationObj, m_animationObj.transform.parent);
+        m_clonedAnimationObj.SetActive(true);
     }
 }
