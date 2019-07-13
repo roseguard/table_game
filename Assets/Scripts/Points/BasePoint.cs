@@ -134,20 +134,25 @@ public class BasePoint : MonoBehaviour
         }
     }
 
-    public void SetSteped(GameObject player)
+    public virtual void SetSteped(GameObject player)
     {
         OnStep.Invoke();
         StepedPlayer = player;
     }
 
-    public void SetStayed(GameObject player)
+    public virtual void SetStayed(GameObject player)
     {
         OnStay.Invoke();
         StayedPlayers.Add(player);
     }
 
-    public void SetLeaved(GameObject player)
+    public virtual void SetLeaved(GameObject player)
     {
         StayedPlayers.Remove(player);
+    }
+
+    public virtual void OnStayedPlayerEndTurn(GameObject player)
+    {
+
     }
 }

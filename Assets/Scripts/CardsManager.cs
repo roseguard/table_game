@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Managers;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,7 +7,6 @@ using UnityEngine.UI;
 public class CardsManager : MonoBehaviour
 {
     public int CardCount = 6;
-    public GameObject Player = null;
     public List<GameObject> Prefabs = new List<GameObject>();
 
     void Start()
@@ -51,15 +51,12 @@ public class CardsManager : MonoBehaviour
 
     public void CardSelected(string cardID)
     {
-        if (Player != null)
+        Player playerScript = PlayersManager.Instance.GetCurrentPlayer();
+        if (playerScript.GetCurrentState() == global::Player.State.ChoosingCard)
         {
-            Player playerScript = Player?.GetComponent<Player>();
-            if (playerScript.GetCurrentState() == global::Player.State.ChoosingCard)
-            {
-                GameObject card = transform.Find(cardID).gameObject;
-                playerScript.ChooseCard(card);
-                Destroy(card);
-            }
+            GameObject card = transform.Find(cardID).gameObject;
+            playerScript.ChooseCard(card);
+            Destroy(card);
         }
     }
 }

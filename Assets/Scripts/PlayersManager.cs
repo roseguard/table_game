@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.Managers
 {
@@ -14,7 +15,6 @@ namespace Assets.Scripts.Managers
 
         PlayersManager()
         {
-            
         }
 
         public void ClearPlayer()
@@ -49,11 +49,22 @@ namespace Assets.Scripts.Managers
 
         public void NextPlayer()
         {
-            m_currentPlayer++;
-            if(m_currentPlayer >= m_players.Count)
+            if (m_players[m_currentPlayer].TurnWasFinished())
             {
-                m_currentPlayer = 0;
+                m_players[m_currentPlayer].OnEndTurn();
+                m_currentPlayer++;
+                if (m_currentPlayer >= m_players.Count)
+                {
+                    m_currentPlayer = 0;
+                }
+                m_players[m_currentPlayer].OnStartTurn();
             }
+
+            foreach(var player in m_players)
+            {
+                player.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
+            }
+            GetCurrentPlayer().GetComponent<SpriteRenderer>().color = new Color(0, 255, 0);
         }
     }
 }

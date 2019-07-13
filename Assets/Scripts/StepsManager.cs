@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Managers;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,7 +10,6 @@ public class StepsManager : MonoBehaviour
     GameObject m_templateDice = null;
 
     public int DiceCount = 6;
-    public GameObject Player = null;
 
     void Start()
     {
@@ -49,15 +49,13 @@ public class StepsManager : MonoBehaviour
 
     public void DiceSelected(string diceValue)
     {
-        if (Player != null)
+
+        Player playerScript = PlayersManager.Instance.GetCurrentPlayer();
+        if (playerScript.GetCurrentState() == global::Player.State.ChoosingSteps)
         {
-            Player playerScript = Player?.GetComponent<Player>();
-            if (playerScript.GetCurrentState() == global::Player.State.ChoosingSteps)
-            {
-                playerScript.MoveOnSteps(diceValue);
-                Destroy(transform.Find(diceValue).gameObject);
-                GenerateDices(DiceCount+1);
-            }
+            playerScript.MoveOnSteps(diceValue);
+            Destroy(transform.Find(diceValue).gameObject);
+            GenerateDices(DiceCount + 1);
         }
     }
 }

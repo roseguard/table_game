@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float PlayerSpeed = 1f;
     public GameObject CardsHolder = null;
     public GameObject DiceHolder = null;
+    public GameObject EndTurnHolder = null;
 
     private List<GameObject> m_wayPoints = new List<GameObject>();
     private int m_moveOnSteps = 0;
@@ -151,6 +152,7 @@ public class Player : MonoBehaviour
         {
             m_currentState = State.ChoosingCard;
             CurrentPoint.GetComponent<BasePoint>().RemoveHightlightAceptable();
+            EndTurnHolder.SetActive(true);
         }
     }
 
@@ -204,13 +206,36 @@ public class Player : MonoBehaviour
         if (m_currentState == State.ChoosingCard)
         {
             card.GetComponent<BaseCard>().ExecCard(gameObject);
-            m_currentState = State.ChoosingSteps;
 
             foreach (var effect in m_effects)
             {
                 effect.OnCardSelected();
             }
         }
+    }
+
+    public void OnEndTurn()
+    {
+        m_currentState = State.Idle;
+        foreach (var effect in m_effects)
+        {
+            effect.OnStepEnd();
+        }
+        EndTurnHolder.SetActive(false);
+    }
+
+    public void OnStartTurn()
+    {
+        m_currentState = State.ChoosingSteps;
+        foreach (var effect in m_effects)
+        {
+            effect.OnNewStep();
+        }
+    }
+
+    public bool TurnWasFinished()
+    {
+        return (m_currentState == State.ChoosingCard);
     }
 
     public State GetCurrentState()

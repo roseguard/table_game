@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Managers;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,5 +34,10 @@ public class WorldManager : MonoBehaviour
             pos += (Vector3)(m_prevMousePos - (Vector2)mousePos);
             Camera.main.transform.position = pos;
         }
+    }
+
+    public void EndPlayerTurn()
+    {
+        PlayersManager.Instance.NextPlayer();
     }
 }
