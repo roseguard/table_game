@@ -40,4 +40,9 @@ public class WorldManager : MonoBehaviour
     {
         PlayersManager.Instance.NextPlayer();
     }
+
+    public void LockCurrentPlayer(bool toLock)
+    {
+        PlayersManager.Instance.GetCurrentPlayer().LockPlayer(toLock);
+    }
 }

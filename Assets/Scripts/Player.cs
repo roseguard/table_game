@@ -17,7 +17,6 @@ public class Player : MonoBehaviour
     private Vector2 m_clickPos = Vector2.zero;
     private List<BaseEffect> m_effects = new List<BaseEffect>();
     private bool m_locked = false;
-    private GameObject m_objectUnlocker = null;
 
     public enum State
     {
@@ -43,12 +42,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if(m_objectUnlocker != null && !m_objectUnlocker.activeSelf)
-        {
-            m_objectUnlocker = null;
-            m_locked = false;
-        }
-
         if(m_locked)
         {
             return;
@@ -179,11 +172,6 @@ public class Player : MonoBehaviour
     public void LockPlayer(bool toLock)
     {
         m_locked = toLock;
-    }
-
-    public void UnlockOnObjectInactive(GameObject unlocker)
-    {
-        m_objectUnlocker = unlocker;
     }
 
     public void MoveOnSteps(string steps)
