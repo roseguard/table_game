@@ -9,6 +9,10 @@ public class NetworkUnit
 {
     //  <4>             <4>         <4>            <N>
     //  <size>          <messid>    <messcommand>  <params>
+    //  <uint>          <int>       <uint-enum>    <not specified>
+    // messid > 0 - server inited mess
+    // messid < 0 - client inited mess
+    // messid - client decrement, server increment
 
     private Socket m_socket = null;
     private const int m_bufferSize = 255;
@@ -54,10 +58,30 @@ public class NetworkUnit
         return ((UInt32)bytes[0]) | ((UInt32)bytes[1] << 8) | ((UInt32)bytes[2] << 16) | ((UInt32)bytes[3] << 24);
     }
 
+    private byte[] CastIntToChars(UInt32 value)
+    {
+        return BitConverter.GetBytes(value);
+    }
+
     public void SendMessage(string message)
     {
+        byte[] size = CastIntToChars((UInt32)message.Length);
+        byte[] messageOut = new byte[4 + message.Length];
+
+        byte[] messageUTF8 = Encoding.UTF8.GetBytes(message);
+
+        for (int i = 0; i < 4; i++)
+        {
+            messageOut[i] = size[i];
+        }
+        for(int i = 4, j = 0; j < message.Length; i++, j++)
+        {
+            messageOut[i] = messageUTF8[j];
+        }
+
         SocketAsyncEventArgs e = new SocketAsyncEventArgs();
-        e.SetBuffer(Encoding.UTF8.GetBytes(message), 0, message.Length);
+        e.SetBuffer(messageOut, 0, message.Length + 4);
+
         m_socket.SendAsync(e);
     }
 }
