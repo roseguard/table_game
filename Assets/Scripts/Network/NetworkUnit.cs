@@ -14,10 +14,19 @@ public class NetworkUnit
     // messid < 0 - client inited mess
     // messid - client decrement, server increment
 
+    public delegate void MessRespondDelegate(UInt32 messid, UInt32 messcommand, string[] paramsArray);
+
+    public enum Requests
+    {
+        InitNewCharacter,
+        Count
+    }
+
     private Socket m_socket = null;
     private const int m_bufferSize = 255;
     private byte[] m_buffer = new byte[m_bufferSize];
     private SocketAsyncEventArgs m_receiveEvent = new SocketAsyncEventArgs();
+    private Dictionary<UInt32, MessRespondDelegate> m_callbacks = new Dictionary<uint, MessRespondDelegate>();
 
     public NetworkUnit(Socket socket)
     {
@@ -35,22 +44,40 @@ public class NetworkUnit
         if(tempStr.Length > 12)
         {
             Array.Clear(e.Buffer, 0, m_bufferSize);
-            string paramsizestr = new string(tempStr.ToCharArray(), 0, 4);
+            string sizestr = new string(tempStr.ToCharArray(), 0, 4);
             string messidstr = new string(tempStr.ToCharArray(), 4, 4);
             string messcommandstr = new string(tempStr.ToCharArray(), 8, 4);
+            string paramsStr = new string(tempStr.ToCharArray(), 12, tempStr.Length - 12);
 
-            UInt32 paramsize = CastCharToInt(paramsizestr.ToCharArray());
+            UInt32 size = CastCharToInt(sizestr.ToCharArray());
             UInt32 messid = CastCharToInt(messidstr.ToCharArray());
             UInt32 messcommand = CastCharToInt(messcommandstr.ToCharArray());
-
-            Debug.Log("AAAAAAAAA");
-            Debug.Log(paramsize);
-            Debug.Log(messid);
-            Debug.Log(messcommand);
+            string[] paramsArray = paramsStr.Split('&');
+            if(m_callbacks.ContainsKey(messid))
+            {
+                m_callbacks[messid]?.Invoke(messid, messcommand, paramsArray);
+            }
+            else
+            {
+                ProcceedRequest(messid, messcommand, paramsArray);
+            }
         }
         
 
         m_socket.ReceiveAsync(m_receiveEvent);
+    }
+
+    private void ProcceedRequest(UInt32 messid, UInt32 messcommand, string[] paramsArray)
+    {
+        if(messcommand >= (int)Requests.Count || messcommand < 0)
+        {
+            SendMessage("Invalid");
+        }
+        Requests request = (Requests)messcommand;
+        switch(request)
+        {
+            case (Requests.InitNewCharacter): SendMessage("Goohd"); break;
+        }
     }
 
     private UInt32 CastCharToInt(char[] bytes)
